@@ -17,16 +17,16 @@ EXPOSE 3000
 ## PRODUCTION
 ##################
 
-FROM node:16  AS production
+FROM node:16 AS production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /alexander/src/app
 
-COPY --from-development /alexander/src/app .
+COPY --from=development /alexander/src/app .
 
-EXPOSE 8000
+EXPOSE 3000
 
-CMD ["node", "dist/main"]
+CMD [ "node", "dist/main"]
 
