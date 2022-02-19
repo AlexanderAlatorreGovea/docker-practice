@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+      content: ./api
+      target: development
+
+      volumes:
+        - ./api:/alexander/src/app
+        - ./alexander/src/app/node_modules
+      
+      command: npm run start:dev
