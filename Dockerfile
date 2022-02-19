@@ -29,4 +29,3 @@ COPY --from=development /alexander/src/app .
 EXPOSE 3000
 
 CMD [ "node", "dist/main"]
-
