@@ -1,0 +1,10 @@
+### Create comment
+POST http://localhost:3000/users
+content-type: application/json
+
+{
+    "name": "roberto" 
+}
+
+### Create comment
+GET http://localhost:3000/users
