@@ -12,7 +12,6 @@ RUN npm run build
 
 EXPOSE 3000
 
-
 ##################
 ## PRODUCTION
 ##################

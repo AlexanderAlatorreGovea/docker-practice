@@ -11,7 +11,7 @@ services:
     # Mount api directory (.) to docker container (/alexander/src/app)
     # Reflect File changes from host to container
     volumes:
-      - /alexander/src/app
+      - .:/alexander/src/app
       - /alexander/src/app/node_modules/
     # RUN in debug mode: npm run start:debug --> Also start your vscode debugger
     # Run in dev mode: npm run start:dev
@@ -24,8 +24,7 @@ services:
       JWT_SECRET: hard_to_guess_secret_123
       PORT: 3000
     ports:
-      - 3000:3000
-      - 9229:9229
+      - 8080:3000
 
   # Our Postgres Database for NestJS to connect to
   postgres:
