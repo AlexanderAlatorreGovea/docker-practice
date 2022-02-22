@@ -1,6 +1,12 @@
 ## Description
 
-This repository is practice for docker and postgres to be used as a template for future applications. I will further add authentication to the project. 
+This repository is practice for docker and postgres to be used as a template for future applications. I will further add authentication to the project.
+
+## To update to the latest nest version
+
+```bash
+$ nest update --force
+```
 
 ## Installation
 
@@ -8,7 +14,7 @@ This repository is practice for docker and postgres to be used as a template for
 $ docker-compose up
 ```
 
-## Remove images 
+## Remove images
 
 ```bash
 # command to remove images
