@@ -11,14 +11,14 @@ $ docker-compose up
 ## Remove images 
 
 ```bash
-# development
+# command to remove images
 $ docker rmi -f $(docker images -a -q)
 ```
 
 ## Remove containers
 
 ```bash
-# development
+# command to drop containers
 $ docker rm -vf $(docker ps -a -q)
 ```
 
