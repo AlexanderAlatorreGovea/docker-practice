@@ -3,7 +3,7 @@ POST http://localhost:8080/users
 content-type: application/json
 
 {
-    "name": "alexander" 
+    "name": "jose" 
 }
 
 ### Create comment
