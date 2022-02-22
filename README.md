@@ -6,7 +6,7 @@ This repository is practice for docker and postgres to be used as a template for
 
 Database PG-Admin: http://localhost:5050/browser/
 
-NESTJS api: http://localhost:3000
+NESTJS api: http://localhost:8080
 
 ## To update to the latest nest version
 
