@@ -4,14 +4,14 @@ const bcrypt = require('bcrypt');
 
 @Injectable()
 export class AuthService {
-  hasPassword(password: string): Observable<string> {
+  hashPassword(password: string): Observable<string> {
     return from<string>(bcrypt.hash(password, 12));
   }
 
   comparePassword(
     password: string,
     storedPasswordHash: string,
-  ): Observable<unknown> {
+  ): Observable<any> {
     return from(bcrypt.compare(password, storedPasswordHash));
   }
 }
