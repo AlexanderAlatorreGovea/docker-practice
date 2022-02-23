@@ -79,7 +79,7 @@ export class UserService {
         // );
 
         // return JWT;
-        return 'login was successful'
+        return 'login was successful';
       }
 
       throw new HttpException(
