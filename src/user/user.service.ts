@@ -74,11 +74,12 @@ export class UserService {
   private generateJWTOrThrowError(user) {
     return switchMap((passwordsMatches: boolean) => {
       if (passwordsMatches) {
-        const JWT = this.findOne(user.id).pipe(
-          switchMap((user: IUser) => this.authService.generateJwt(user)),
-        );
+        // const JWT = this.findOne(user.id).pipe(
+        //   switchMap((user: IUser) => this.authService.generateJwt(user)),
+        // );
 
-        return JWT;
+        // return JWT;
+        return 'login was successful'
       }
 
       throw new HttpException(
