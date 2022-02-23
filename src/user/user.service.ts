@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { from, map, Observable, OperatorFunction, switchMap } from 'rxjs';
+import { from, map, Observable, switchMap } from 'rxjs';
 import { AuthService } from 'src/auth/services/auth/auth.service';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './models/dto/CreateUser.dto';
+import { LoginUserDto } from './models/dto/LoginUser.dto';
 import { UserEntity } from './models/user.entity';
 import { IUser } from './models/user.interface';
 
@@ -15,8 +16,8 @@ export class UserService {
     private authService: AuthService,
   ) {}
 
-  create(createdUserDto: CreateUserDto): Observable<IUser> {
-    const userEntity = this.userRepository.create(createdUserDto);
+  create(user: CreateUserDto): Observable<IUser> {
+    const userEntity = this.userRepository.create(user);
 
     return this.mailExists(userEntity.email).pipe(
       switchMap((exists: boolean) => {
@@ -38,7 +39,7 @@ export class UserService {
     return switchMap((passwordHash: string) => {
       userEntity.password = passwordHash;
 
-      const savedUserFromRepo = this.userRepository.save(userEntity);
+      const user = this.userRepository.save(userEntity);
 
       const userWithoutPassword = map((savedUser: IUser) => {
         const { password, ...user } = savedUser;
@@ -46,8 +47,7 @@ export class UserService {
         return user;
       });
 
-      const userWithOmittedPassword =
-        from(savedUserFromRepo).pipe(userWithoutPassword);
+      const userWithOmittedPassword = from(user).pipe(userWithoutPassword);
 
       return userWithOmittedPassword;
     });
@@ -55,6 +55,41 @@ export class UserService {
 
   findAll(): Observable<IUser[]> {
     return from(this.userRepository.find());
+  }
+
+  login(loginUser: LoginUserDto): Observable<any> {
+    return this.findUserByEmail(loginUser.email.toLowerCase()).pipe(
+      switchMap((user: IUser) => {
+        if (user) {
+          return this.validatePassword(loginUser.password, user.password).pipe(
+            this.generateJWTOrThrowError(user),
+          );
+        }
+
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      }),
+    );
+  }
+
+  private generateJWTOrThrowError(user) {
+    return switchMap((passwordsMatches: boolean) => {
+      if (passwordsMatches) {
+        const JWT = this.findOne(user.id).pipe(
+          switchMap((user: IUser) => this.authService.generateJwt(user)),
+        );
+
+        return JWT;
+      }
+
+      throw new HttpException(
+        'Login was not Successfulll',
+        HttpStatus.UNAUTHORIZED,
+      );
+    });
+  }
+
+  findOne(id: number): Observable<IUser> {
+    return from(this.userRepository.findOne({ id }));
   }
 
   private findUserByEmail(email: string): Observable<IUser> {
@@ -75,14 +110,14 @@ export class UserService {
 
   private mailExists(email: string): Observable<boolean> {
     email = email.toLowerCase();
-    return from(this.userRepository.findOne({ email })).pipe(
-      map((user: IUser) => {
-        if (user) {
-          return true;
-        }
+    const savedEmail = this.userRepository.findOne({ email });
 
-        return false;
-      }),
-    );
+    const hasUser = map((user: IUser) => {
+      if (user) return true;
+
+      return false;
+    });
+
+    return from(savedEmail).pipe(hasUser);
   }
 }
