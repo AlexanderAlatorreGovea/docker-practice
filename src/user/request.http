@@ -3,7 +3,18 @@ POST http://localhost:8080/users
 content-type: application/json
 
 {
-    "name": "jose" 
+    "name": "jose",
+    "email": "test@hotmail.com",
+    "password": "thomaswer23"
+}
+
+### login
+POST http://localhost:8080/users/login
+content-type: application/json
+
+{
+    "email": "test@hotmail.m",
+    "password": "thomaswer23"
 }
 
 ### Create comment
