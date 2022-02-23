@@ -38,17 +38,16 @@ export class UserService {
     return switchMap((passwordHash: string) => {
       userEntity.password = passwordHash;
 
-      const omittedPasswordFromUser = map((savedUser: IUser) => {
+      const savedUserFromRepo = this.userRepository.save(userEntity);
+
+      const userWithoutPassword = map((savedUser: IUser) => {
         const { password, ...user } = savedUser;
-        
+
         return user;
       });
 
-      const savedUserInRepo = this.userRepository.save(userEntity);
-      
-      const userWithOmittedPassword = from(savedUserInRepo).pipe(
-        omittedPasswordFromUser,
-      );
+      const userWithOmittedPassword =
+        from(savedUserFromRepo).pipe(userWithoutPassword);
 
       return userWithOmittedPassword;
     });
