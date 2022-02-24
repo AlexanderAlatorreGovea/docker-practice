@@ -1,12 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { from, map, Observable, switchMap } from 'rxjs';
-import { AuthService } from 'src/auth/services/auth/auth.service';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './models/dto/CreateUser.dto';
+import { from, map, Observable, switchMap } from 'rxjs';
+
+import { AuthService } from '../auth/services/auth.service';
 import { LoginUserDto } from './models/dto/LoginUser.dto';
 import { UserEntity } from './models/user.entity';
 import { IUser } from './models/user.interface';
+import { CreateUserDto } from './models/dto/CreateUser.dto';
 
 @Injectable()
 export class UserService {
@@ -74,12 +75,11 @@ export class UserService {
   private generateJWTOrThrowError(user) {
     return switchMap((passwordsMatches: boolean) => {
       if (passwordsMatches) {
-        // const JWT = this.findOne(user.id).pipe(
-        //   switchMap((user: IUser) => this.authService.generateJwt(user)),
-        // );
+        const JWT = this.findOne(user.id).pipe(
+          switchMap((user: IUser) => this.authService.generateJwt(user)),
+        );
 
-        // return JWT;
-        return 'login was successful';
+        return JWT;
       }
 
       throw new HttpException(

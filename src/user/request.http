@@ -1,10 +1,10 @@
-### Create comment
+### Create user
 POST http://localhost:8080/users
 content-type: application/json
 
 {
-    "name": "jose",
-    "email": "test@hotmail.com",
+    "name": "jose2",
+    "email": "test2@hotmail.com",
     "password": "thomaswer23"
 }
 
@@ -13,9 +13,10 @@ POST http://localhost:8080/users/login
 content-type: application/json
 
 {
-    "email": "test@hotmail.m",
+    "email": "test2@hotmail.com",
     "password": "thomaswer23"
 }
 
-### Create comment
+### Get all users
 GET http://localhost:8080/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJuYW1lIjoiam9zZTIiLCJlbWFpbCI6InRlc3QyQGhvdG1haWwuY29tIn0sImlhdCI6MTY0NTU5MTg1OSwiZXhwIjoxNjQ1NjAxODU5fQ.teWrh5kJoIkojddoma8PCWDjBWo0AYHmw1Y9SQxoOl4
