@@ -4,7 +4,7 @@ content-type: application/json
 
 {
     "name": "jose2",
-    "email": "test2@hotmail.com",
+    "email": "test3@hotmail.com",
     "password": "thomaswer23"
 }
 
@@ -13,10 +13,10 @@ POST http://localhost:8080/users/login
 content-type: application/json
 
 {
-    "email": "test2@hotmail.com",
+    "email": "test3@hotmail.com",
     "password": "thomaswer23"
 }
 
 ### Get all users
 GET http://localhost:8080/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJuYW1lIjoiam9zZTIiLCJlbWFpbCI6InRlc3QyQGhvdG1haWwuY29tIn0sImlhdCI6MTY0NTU5MTg1OSwiZXhwIjoxNjQ1NjAxODU5fQ.teWrh5kJoIkojddoma8PCWDjBWo0AYHmw1Y9SQxoOl4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJuYW1lIjoiam9zZTIiLCJlbWFpbCI6InRlc3QzQGhvdG1haWwuY29tIn0sImlhdCI6MTY0NTY3MDkwNiwiZXhwIjoxNjQ1NjgwOTA2fQ.gGJ-sc3JLe5NTSMswaterIHGN5FGY4RtdZZSzuzW4Rs
