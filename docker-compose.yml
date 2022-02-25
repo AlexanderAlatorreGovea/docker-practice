@@ -13,7 +13,7 @@ services:
     volumes:
       - .:/alexander/src/app
       - /alexander/src/app/node_modules/
-    # RUN in debug mode: npm run start:debug --> Also start your vscode debugger
+    # RUN hot reload: npm run start:dev
     # Run in dev mode: npm run start:dev
     command: npm run start:dev
     depends_on:
